@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> RA Suplementos </title>
+
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Ícones (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo">
+            <img src="./assets/logo-suplementos.png" alt="Logo Barbearia RA" class="logo-image" />
+            <span class="logo-text"> Suplementos </span>
+        </a>
+
+        <div class="search-container">
+            <input placeholder="Buscar por um Produto..." class="search-input" />
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <!-- Ícone da sacola -->
+        <div class="cart-icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-badge">0</span>
+        </div>
+    </header>
+
+    <div class="categories-container">
+    <nav class="categories-bar">
+        <button class="category-btn active" data-category="all">
+            <i class="fa-solid fa-layer-group"></i> Todos
+        </button>
+    
+        <!-- Creatina = força/treino -->
+        <button class="category-btn" data-category="Creatina">
+            <i class="fa-solid fa-dumbbell"></i> Creatina
+        </button>
+    
+        <!-- Colágeno = cuidado/biomolécula -->
+        <button class="category-btn" data-category="Colágeno">
+            <i class="fa-solid fa-dna"></i> Colágeno
+        </button>
+    
+        <!-- Acessórios = garrafa/coqueteleira -->
+        <button class="category-btn" data-category="Acessórios">
+            <i class="fa-solid fa-bottle-water"></i> Acessórios
+        </button>
+    
+        <!-- Carboidratos = alimento/energia -->
+        <button class="category-btn" data-category="Carboidratos">
+            <i class="fa-solid fa-bowl-rice"></i> Carboidratos
+        </button>
+    </nav>
+    </div>
+
+    <section class="hero-section">
+        <h2>"Sua Performance Começa Aqui – Energia, Força e Saúde em um só lugar!"</h2>
+        <p></p>
+        <div class="wave-divider">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.83C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+                    class="shape-fill" fill="#FDFDFD"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section class="featured-look">
+        <img src="./assets/coleção-suplimentos.png" alt="Coleção Essência" class="featured-look-img" />
+        <div class="featured-look-info">
+            <h3>Produtos RA Suplementos</h3>
+            <p>Potencialize seus resultados com a nossa linha exclusiva de suplementos!
+            Creatina para força, colágeno para saúde, carboidratos para energia e acessórios para facilitar sua rotina. Tudo o que
+            você precisa em um só lugar!</p>
+            <a href="#products-section" class="btn-primary">Explorar Coleção</a>
+        </div>
+    </section>
+
+    <main class="products" id="products-section">
+        <div class="products-container"></div>
+    </main>
+
+    <div class="cart-overlay"></div>
+    <aside class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Sua Sacola <i class="fa-solid fa-bag-shopping"></i></h3>
+            <button class="close-cart-btn">&times;</button>
+        </div>
+
+        <div class="cart-body"></div>
+
+        <div class="cart-footer">
+            <div class="options-toggle">
+                <button class="delivery-btn active" data-option="delivery">
+                    <i class="fa-solid fa-truck-fast"></i> Entrega
+                </button>
+                <button class="delivery-btn" data-option="pickup">
+                    <i class="fa-solid fa-store"></i> Retirada
+                </button>
+            </div>
+
+            <div id="delivery-form-container">
+                <div class="form-group">
+                    <label for="delivery-name">Nome do Responsável</label>
+                    <input type="text" id="delivery-name" placeholder="Nome e sobrenome" required />
+                </div>
+                <div class="form-group">
+                    <label for="delivery-phone">Seu Telefone (WhatsApp)</label>
+                    <input type="tel" id="delivery-phone" placeholder="(XX) XXXXX-XXXX" maxlength="15" required />
+                </div>
+                <div class="form-group">
+                    <label for="delivery-cep">CEP</label>
+                    <input type="text" id="delivery-cep" placeholder="00000-000" maxlength="9" required />
+                </div>
+                <div class="form-group">
+                    <label for="delivery-address">Endereço</label>
+                    <textarea id="delivery-address" placeholder="Rua, Número, Bairro, Complemento" required></textarea>
+                </div>
+
+                <div class="delivery-fee-notice">A taxa de entrega será calculada de acordo com a sua região.</div>
+
+                <div class="payment-options-container">
+                    <h4>Forma de Pagamento</h4>
+
+                    <label class="payment-option selected">
+                        <input type="radio" name="payment" value="PIX" checked />
+                        <span class="radio-custom"></span> PIX
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="Cartão de Crédito" />
+                        <span class="radio-custom"></span> Cartão de Crédito
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="Cartão de Débito" />
+                        <span class="radio-custom"></span> Cartão de Débito
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="Dinheiro" />
+                        <span class="radio-custom"></span> Dinheiro
+                    </label>
+
+                    <div id="troco-container" style="display: none;">
+                        <div class="form-group">
+                            <label for="troco-para">Precisa de troco para quanto?</label>
+                            <input type="number" id="troco-para" placeholder="Ex: 100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pickup-form-container" style="display: none;">
+                <div class="form-group">
+                    <label for="pickup-name">Nome para Retirada</label>
+                    <input type="text" id="pickup-name" placeholder="Digite nome e sobrenome" required />
+                </div>
+                <div class="form-group">
+                    <label>Agende a Data e Hora</label>
+                    <div class="date-time-row">
+                        <input type="date" id="pickup-date" required />
+                        <select id="pickup-time" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coupon-container">
+                <input type="text" id="coupon-input" placeholder="Cupom de desconto" />
+                <button id="apply-coupon-btn">Aplicar</button>
+            </div>
+
+            <p id="coupon-feedback" class="coupon-feedback"></p>
+
+            <div class="cart-summary">
+                <div class="summary-line"><span>Subtotal</span><span id="cart-subtotal">R$ 0,00</span></div>
+                <div class="summary-line discount-line" style="display: none;">
+                    <span>Desconto</span><span id="cart-discount">- R$ 0,00</span>
+                </div>
+                <div class="summary-line total"><span>Total</span><span id="cart-total">R$ 0,00</span></div>
+            </div>
+        </div>
+
+        <div class="finish-order-btn-container">
+            <button id="finish-order-btn" class="finish-order-btn" disabled>
+                <i class="fab fa-whatsapp"></i> Finalizar Pedido
+            </button>
+        </div>
+    </aside>
+
+    <div class="view-cart-banner">
+        <p>Total: <span id="banner-total">R$ 0,00</span></p>
+        <!-- Texto atualizado -->
+        <button class="view-cart-banner-btn">Ver Sacola</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 - RA Suplementos . Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
