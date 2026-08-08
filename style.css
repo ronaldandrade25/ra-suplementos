@@ -387,3 +387,21 @@ footer{
   .products-container{gap:2rem;}
   .product-img-container{height:300px;}
 }
+
+/* Banner do cabeçalho (opcional, definido pelo admin em Configurações) */
+header.header--banner {
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+header.header--banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,.6), rgba(0,0,0,.3), rgba(0,0,0,.1));
+    z-index: 0;
+}
+header.header--banner > * {
+    position: relative;
+    z-index: 1;
+}

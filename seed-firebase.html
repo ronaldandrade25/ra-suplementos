@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Firebase – RA Suplementos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #eee; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+    h1 { font-size: 1.4rem; margin-bottom: 8px; color: #f0c040; }
+    p  { font-size: .9rem; color: #aaa; margin-bottom: 24px; text-align: center; max-width: 480px; }
+    #btn { padding: 14px 36px; background: #f0c040; color: #000; font-size: 1rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: opacity .2s; }
+    #btn:disabled { opacity: .45; cursor: not-allowed; }
+    #log  { margin-top: 24px; width: 100%; max-width: 540px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px; font-size: .8rem; font-family: monospace; max-height: 360px; overflow-y: auto; }
+    .ok   { color: #4caf50; }
+    .err  { color: #f44336; }
+    .info { color: #90caf9; }
+  </style>
+</head>
+<body>
+
+<h1>🔥 Seed de Produtos – RA Suplementos</h1>
+<p>Clique no botão abaixo para enviar todos os produtos ao Firestore do Firebase. Execute <strong>apenas uma vez</strong>. Se rodar novamente, usará <code>set</code> com o mesmo ID (não duplica).</p>
+
+<button id="btn">🚀 Enviar Produtos ao Firebase</button>
+
+<div id="log"><span class="info">Aguardando…</span></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+// TODO: preencher com as credenciais do Firebase deste projeto (mesmo firebaseConfig do admin.html)
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+
+const produtos = [
+  { id: 1, nome: "Creatina micronizada", categoria: "Creatina",    preco: 159.99, imagem: "./assets/creatina-suplementos.jpeg", descricao: "Creatina micronizada em pó, 1KG." },
+  { id: 2, nome: "Kit Whey + Creatina",  categoria: "Creatina",    preco: 189.99, imagem: "./assets/max-titanium.jpeg",         descricao: "Kit contendo Whey Protein e Creatina para potencializar seus treinos." },
+  { id: 3, nome: "Colageno Hidrolisado", categoria: "Colágeno",    preco: 69.99,  imagem: "./assets/colágeno.jpeg",             descricao: "Colágeno Hidrolisado em pó, 200g." },
+  { id: 4, nome: "Colagentek",           categoria: "Colágeno",    preco: 35.99,  imagem: "./assets/colagentek.jpeg",           descricao: "Colagentek em pó, 200g." },
+  { id: 5, nome: "Coqueteleira Fitness", categoria: "Acessórios",  preco: 19.99,  imagem: "./assets/coqueteleira.jpeg",         descricao: "Coqueteleira Fitness com design ergonômico e capacidade de 700ml." },
+  { id: 6, nome: "Galão de Água",        categoria: "Acessórios",  preco: 49.99,  imagem: "./assets/galão-de-agua.jpeg",        descricao: "Galão de Água de 5 litros, ideal para manter a hidratação durante os treinos." },
+  { id: 7, nome: "Dextrose 1kg",         categoria: "Carboidratos", preco: 29.99, imagem: "./assets/dextrox.jpeg",              descricao: "Dextrose em pó, 1kg." },
+  { id: 8, nome: "Palatinose",           categoria: "Carboidratos", preco: 69.99, imagem: "./assets/palatinose.jpeg",           descricao: "Palatinose em pó, 1kg." },
+];
+
+const categorias = [
+  { id: "all",          nome: "Todos",        icone: "fa-layer-group" },
+  { id: "Creatina",     nome: "Creatina",     icone: "fa-dumbbell" },
+  { id: "Colágeno",     nome: "Colágeno",     icone: "fa-dna" },
+  { id: "Acessórios",   nome: "Acessórios",   icone: "fa-bottle-water" },
+  { id: "Carboidratos", nome: "Carboidratos", icone: "fa-bowl-rice" },
+];
+
+const cupons = [
+  { codigo: "AURA10", tipo: "percentual", valor: 10, valorMinimo: 0, validade: null, ativo: true },
+];
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const log = document.getElementById("log");
+const btn = document.getElementById("btn");
+
+const addLog = (msg, tipo = "ok") => {
+  const span = document.createElement("span");
+  span.className = tipo;
+  span.textContent = msg;
+  log.appendChild(span);
+  log.appendChild(document.createElement("br"));
+  log.scrollTop = log.scrollHeight;
+};
+
+btn.addEventListener("click", async () => {
+  btn.disabled = true;
+  log.innerHTML = "";
+  addLog("▶ Iniciando envio...", "info");
+
+  let ok = 0, erros = 0;
+
+  for (const p of produtos) {
+    try {
+      await db.collection("produtos").doc(String(p.id)).set({
+        ...p,
+        ativo: true,
+        destaque: false,
+        criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      addLog(`✔ [${p.id}] ${p.nome}`, "ok");
+      ok++;
+    } catch (e) {
+      addLog(`✘ [${p.id}] ${p.nome} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog("▶ Enviando categorias...", "info");
+  for (const c of categorias) {
+    try {
+      await db.collection("categorias").doc(c.id).set(c);
+      addLog(`✔ Categoria: ${c.nome}`, "ok");
+    } catch (e) {
+      addLog(`✘ Categoria: ${c.nome} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog("▶ Enviando cupons...", "info");
+  for (const c of cupons) {
+    try {
+      await db.collection("cupons").add(c);
+      addLog(`✔ Cupom: ${c.codigo}`, "ok");
+    } catch (e) {
+      addLog(`✘ Cupom: ${c.codigo} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog(`━━━ CONCLUÍDO: ${ok} produtos enviados, ${erros} erros ━━━`, erros > 0 ? "err" : "info");
+  btn.disabled = false;
+});
+</script>
+</body>
+</html>
