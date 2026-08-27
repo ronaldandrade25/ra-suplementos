@@ -39,18 +39,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="./firebase-config.js"></script>
 
 <script>
-// TODO: preencher com as credenciais do Firebase deste projeto (mesmo firebaseConfig do admin.html)
-const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
-};
-
 const produtos = [
   { id: 1, nome: "Creatina micronizada", categoria: "Creatina",    preco: 159.99, imagem: "./assets/creatina-suplementos.jpeg", descricao: "Creatina micronizada em pó, 1KG." },
   { id: 2, nome: "Kit Whey + Creatina",  categoria: "Creatina",    preco: 189.99, imagem: "./assets/max-titanium.jpeg",         descricao: "Kit contendo Whey Protein e Creatina para potencializar seus treinos." },

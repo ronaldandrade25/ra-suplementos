@@ -1,17 +1,8 @@
 // ─── FIREBASE CONFIG ──────────────────────────────────────────────────────────
-// TODO: preencher com as credenciais do Firebase deste projeto (mesmo firebaseConfig do admin.html)
-const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
-};
+// firebaseConfig é carregado de ./firebase-config.js
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 // ─────────────────────────────────────────────────────────────────────────────
-
 document.addEventListener("DOMContentLoaded", async () => {
     const cartIcon = document.querySelector(".cart-icon"),
         cartSidebar = document.querySelector(".cart-sidebar"),
