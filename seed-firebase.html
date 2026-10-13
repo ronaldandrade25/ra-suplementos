@@ -144,7 +144,7 @@ btn.addEventListener("click", async () => {
   addLog("▶ Enviando cupons...", "info");
   for (const c of cupons) {
     try {
-      await db.collection("cupons").add(c);
+      await db.collection("cupons").doc(c.codigo).set(c);
       addLog(`✔ Cupom: ${c.codigo}`, "ok");
     } catch (e) {
       addLog(`✘ Cupom: ${c.codigo} — ${e.message}`, "err");
